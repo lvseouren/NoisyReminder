@@ -57,6 +57,9 @@ void main(void)
 			cout<<"什么，居然还没注意到我！我再摇摇摇！"<<endl;
 			StartShake();
 			ShellExecute(NULL,L"open",L"http://www.meican.com/corps/idreamsky/",NULL,NULL,SW_SHOWMAXIMIZED);
+			//重新打开软件进行明天的点餐
+			//TODO:测试无误之后将打开方式设为SW_HIDE ，即隐藏，后台运行
+			ShellExecute( NULL, L"open",/* L"explorer.exe",*/ L"C:\\Users\\asus\\Documents\\visual studio 2012\\Projects\\点餐提醒者\\Debug\\点餐提醒者.exe", NULL,NULL, SW_SHOWMAXIMIZED ); 
 			break;
 		}
 		else//算出离点餐时间还差多久，让程序先sleep一段时间。

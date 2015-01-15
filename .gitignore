@@ -53,3 +53,7 @@ Temporary Items
 *.lastbuildstate
 *.unsuccessfulbuild
 *.suo
+*.ilk
+*.opensdf
+*.sdf
+*.exe
