@@ -13,8 +13,42 @@ Itime Itime::operator-(const Itime& rhs)
 	int hour_differ = (hour-rhs.hour);
 	int min_differ = (minute-rhs.minute);
 	int sec_differ = second-rhs.second;
+	if(sec_differ<0)
+	{
+		sec_differ+=60;
+		--min_differ;
+	}
+	if(min_differ<0)
+	{
+		min_differ+=60;
+		--hour_differ;
+	}
+	if(hour_differ<0)
+	{
+		hour_differ+=24;
+		--day_differ;
+	}
 	return Itime(year_differ,mon_differ,day_differ,hour_differ,min_differ,sec_differ);
 }
+
+Itime Itime::operator+=(const Itime& rhs)
+{
+	int h = hour+rhs.hour;
+	int m = minute+rhs.minute;
+	int s = second+rhs.second;
+	if(s>=60)
+	{
+		s-=60;
+		++m;
+	}
+	if(m>=60)
+	{
+		m-=60;
+		++h;
+	}
+	return Itime(year+=rhs.year,month+=rhs.month,day+=rhs.day,hour=h,minute=m,second=s);
+}
+
 bool Itime::operator>(const Itime&rhs)
 {
 	Itime differ = *this-rhs;
@@ -39,9 +73,7 @@ bool Itime::operator>(const Itime&rhs)
 	}
 	//hour<0
 	return false;
-
-
-		
+	
 
 }
 int Itime::ItimeToSecond()
@@ -102,7 +134,7 @@ string Itime::ItimeLenToString()
 	sprintf_s(TimeMinStr,"%d",minute);
 	sprintf_s(TimeHourStr,"%d",hour);
 
-	result =string("¹²¼Æ") + TimeHourStr+string("h")+TimeMinStr+string("m")+TimeSecStr+string("s");
+	result = TimeHourStr+string("h")+TimeMinStr+string("m")+TimeSecStr+string("s");
 	return result;
 }
 

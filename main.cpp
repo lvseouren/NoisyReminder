@@ -10,6 +10,9 @@ using std::cin;
 using std::cout;
 using std::endl;
 
+//start global
+const Itime dayTime(0,0,0,24,0,0);
+//end global
 Itime GetCurrentITime()//放到time.h中去
 {
 	time_t now;
@@ -23,12 +26,15 @@ void StartShake();
 void main(void)
 {
 	//TODO:将点餐提醒时间改为由用户设置
-	cout<<"请输入提醒时间（格式为 hour：minute：second——格式输错我可不负责！）:"<<endl;
-	string remindTimeStr;
-	cin>>remindTimeStr;
+	//cout<<"请输入提醒时间（格式为 hour：minute：second——格式输错我可不负责！）:"<<endl;
+	//string remindTimeStr;
+	//cin>>remindTimeStr;
+	
+	//为了程序只要运行一次就不用再管，时间写死
+	//TODO:软件运行时发现时间超过16:30:0，则将明天的16:30：0作为点餐提醒时间。
 
-	//Itime BeginRemindTime(0,0,0,20,35,0);
-	Itime BeginRemindTime = StrConvertToItime(remindTimeStr);
+	Itime BeginRemindTime(0,0,0,10,30,0);
+	/*Itime BeginRemindTime = StrConvertToItime(remindTimeStr);*/
 
 	cout<<"你设定的点餐时间是:"<<BeginRemindTime<<endl;
 
@@ -38,8 +44,9 @@ void main(void)
 	bool sleeped = false;
 	string remindEatStr = "点餐";
 	string remindGoHomeStr = "回家";
+	bool today = false;
 	
-	cout<<"别急，我在看着表呢！到时间了我会提醒你"<<remindEatStr<<"的."<<endl;
+	cout<<"别担心，我在看着表呢！到时间了我会提醒你"<<remindEatStr<<"的."<<endl;
 	while(1)
 	{
 		timeWakeup = GetCurrentITime();
@@ -48,7 +55,7 @@ void main(void)
 			cout<<"我睡醒了，现在时间是："<<timeWakeup<<endl;
 		}
 		Itime currentTime = GetCurrentITime();
-		if(currentTime > BeginRemindTime)
+		if(currentTime > BeginRemindTime && today)
 		{
 			cout<<"点餐啦，点餐啦，听不见？我摇，我摇摇摇！"<<endl;
 			StartShake();
@@ -65,6 +72,7 @@ void main(void)
 		else//算出离点餐时间还差多久，让程序先sleep一段时间。
 		{
 			secToSleep = (BeginRemindTime -currentTime).ItimeToSecond();
+			Itime sleepTime = BeginRemindTime -currentTime;
 			secToSleep -= 2;//提前两秒醒来
 			if(secToSleep<0)
 			{
@@ -73,11 +81,12 @@ void main(void)
 			timeBeforeSleep = currentTime;
 			if(secToSleep!=0)
 			{
-				cout<<"现在时间是："<<timeBeforeSleep<<endl;
-				cout<<"离"<<remindEatStr<<"时间还有点远，我先睡"<<secToSleep<<"秒"<<endl;
+				cout<<"现在时间是 "<<timeBeforeSleep<<endl;
+				cout<<"离"<<remindEatStr<<"时间还有点远，我先睡"<<sleepTime.ItimeLenToString()<<"醒了叫你"<<endl;
 			}
 			Sleep(secToSleep*1000);
 			sleeped = true;
+			today = true;
 		}
 	}
 	cout<<"任务完成，记得"<<remindEatStr<<"，我滚了。"<<endl;

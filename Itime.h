@@ -18,6 +18,7 @@ struct Itime
 	//todo:修改Itime类的-运算符，使之返回Itime类型的值
 	//todo:添加一个method，输入Itime，输出以秒为单位的整数
 	Itime operator-(const Itime& rhs);
+	Itime operator+=(const Itime& rhs);
 	bool operator>(const Itime&rhs);
 	int ItimeToSecond();
 	string ItimeToString();
