@@ -33,7 +33,7 @@ void main(void)
 	//为了程序只要运行一次就不用再管，时间写死
 	//TODO:软件运行时发现时间超过16:30:0，则将明天的16:30：0作为点餐提醒时间。
 
-	Itime BeginRemindTime(0,0,0,10,30,0);
+	Itime BeginRemindTime(0,0,0,16,30,0);
 	/*Itime BeginRemindTime = StrConvertToItime(remindTimeStr);*/
 
 	cout<<"你设定的点餐时间是:"<<BeginRemindTime<<endl;
