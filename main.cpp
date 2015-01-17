@@ -36,7 +36,7 @@ void main(void)
 	Itime BeginRemindTime(0,0,0,16,30,0);
 	/*Itime BeginRemindTime = StrConvertToItime(remindTimeStr);*/
 
-	cout<<"你设定的点餐时间是:"<<BeginRemindTime<<endl;
+	cout<<"你设定的点餐时间是 "<<BeginRemindTime<<endl;
 
 	Itime timeBeforeSleep;
 	Itime timeWakeup;

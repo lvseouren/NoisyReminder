@@ -1,2 +1,2 @@
 set ws=wscript.createobject("wscript.shell")
-ws.run "点餐提醒者.exe",6
+ws.run "点餐提醒者.exe",0
